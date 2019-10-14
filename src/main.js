@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
-// import BootstrapVue from 'bootstrap-vue'
-// // import 'bootstrap/dist/css/bootstrap.css'
-// // import 'bootstrap-vue/dist/bootstrap-vue.css'
+import store from './store/index.js'
+
+
 import './assets/main.css'
-// // Vue.use(BootstrapVue)
+import HttpService from './shared/http.service';
 Vue.config.productionTip = false
+
+HttpService.init();
 
 new Vue({
   router,

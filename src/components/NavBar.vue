@@ -1,11 +1,11 @@
 <template>
     <nav class="navbar navbar-light">
       <div class="container">
-        <a class="navbar-brand" href="index.html">My Medium</a>
+        <router-link class="navbar-brand" to="/">My Medium</router-link>
         <ul class="nav navbar-nav pull-xs-right">
           <li class="nav-item">
             <!-- Add "active" class when you're on that page" -->
-            <a class="nav-link active" href="">Home</a>
+            <router-link  class="nav-link active" to="/">Home</router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="">
@@ -13,14 +13,35 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <router-link class="nav-link" to="/settings">
               <i class="ion-gear-a"></i>&nbsp;Settings
-            </a>
+            </router-link>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Sign up</a>
+          <li class="nav-item" v-if="!isLoggedIn">
+            <router-link class="nav-link" to="signup">Sign up</router-link>
+          </li>
+          <li class="nav-item" v-if="isLoggedIn">
+            <a class="nav-link" @click="logout" >Logout</a>
           </li>
         </ul>
       </div>
     </nav>
 </template>
+
+<script>
+import { LOGOUT } from "@/store/actionType";
+
+export default {
+    computed:{
+        isLoggedIn: function(){return this.$store.getters.isLoggedIn}
+    },
+    methods:{
+        logout: function(){
+            this.$store.dispatch(LOGOUT).then(()=>{
+                this.$router.push('/login');
+            });
+        }
+    }
+}
+</script>
+

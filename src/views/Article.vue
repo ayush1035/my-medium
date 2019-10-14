@@ -1,4 +1,5 @@
-<div class="article-page">
+<template>
+    <div class="article-page">
 
   <div class="banner">
     <div class="container">
@@ -118,3 +119,4 @@
   </div>
 
 </div>
+</template>

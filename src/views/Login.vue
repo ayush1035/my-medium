@@ -13,17 +13,16 @@
           <li>That email is already taken</li>
         </ul>
 
-        <form>
-          
+        <form >
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Email">
+            <input class="form-control form-control-lg" v-model="email" type="email" placeholder="Email">
           </fieldset>
           <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="password" placeholder="Password">
+            <input class="form-control form-control-lg" v-model="password" type="password" placeholder="Password">
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">
-            Sign up
-          </button>
+          <button class="btn btn-lg btn-primary pull-xs-right" @click="login(email,password)">
+            Sign in
+          </button >
         </form>
       </div>
 
@@ -31,3 +30,25 @@
   </div>
 </div>
 </template>
+
+<script>
+import { LOGIN } from "@/store/actionType";
+
+export default {
+  name: "Login",
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    login: function(email, password) {
+      this.$store
+        .dispatch(LOGIN, { email, password })
+        .then(() => this.$router.push("/"))
+        .catch(err => console.log(err));
+    }
+  }
+};
+</script>
