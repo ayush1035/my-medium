@@ -5,10 +5,10 @@ import LocalStorageService from "./localStorage.service";
 import {API_URL} from "./constants.js";
 
 const HttpService = {
-    init() {
+    setup() {
         Vue.use(VueAxios, axios);
-        console.log(API_URL)
         Vue.axios.defaults.baseURL = API_URL;
+
     },
     setHeader() {
         Vue.axios.defaults.headers.common[
@@ -17,6 +17,12 @@ const HttpService = {
     },
     get(url, id = "") {
         return Vue.axios.get(`${url}/${id}`).catch(error => {
+            console.log(error)
+        });
+    },
+
+    getWithParams(url,params){
+        return Vue.axios.get(url,params).catch(error => {
             console.log(error)
         });
     },

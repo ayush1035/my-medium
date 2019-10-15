@@ -1,11 +1,12 @@
 import LocalStorgeService from "@/shared/localStorage.service";
-import 
-    HttpService
- from "@/shared/http.service";
+import
+HttpService
+from "@/shared/http.service";
 import {
     LOGIN,
     LOGOUT,
-    REGISTER
+    REGISTER,
+    CHECK_USER
 } from "./actionType";
 
 import {
@@ -31,7 +32,9 @@ const actions = {
         return new Promise(res => {
             HttpService.post("users/login", {
                 user: payload
-            }).then(({data}) => {
+            }).then(({
+                data
+            }) => {
                 context.commit(SET_USER, data.user);
                 res(data);
             })
@@ -45,15 +48,33 @@ const actions = {
             HttpService.post("users", {
                     user: payload
                 })
-                .then((
-                    {data}
-                ) => {
+                .then(({
+                    data
+                }) => {
                     debugger;
                     context.commit(SET_USER, data.user);
                     res(data);
                 });
         });
     },
+    [CHECK_USER](context) {
+        if (LocalStorgeService.get()) {
+            HttpService.setHeader();
+            HttpService.get("user")
+                .then(({
+                    data
+                }) => {
+                    context.commit(SET_USER, data.user);
+                })
+                .catch(({
+                    response
+                }) => {
+                    console.log(response.data.errors);
+                });
+        } else {
+            context.commit(UNSET_USER);
+        }
+    }
 
 };
 

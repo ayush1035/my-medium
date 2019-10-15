@@ -9,7 +9,24 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: "",
+          name: "homeGlobal",
+          component: () => import("@/views/GlobalFeed")
+        },
+        {
+          path: "ownFeed",
+          name: "homeOwnFeed",
+          component: () => import("@/views/OwnFeed")
+        },
+        {
+          path: "tag/:tag",
+          name: "homeTag",
+          component: () => import("@/views/TagFeed")
+        }
+      ]
     },
     {
       path: '/login',
@@ -18,7 +35,7 @@ export default new Router({
     },
     {
       path: '/signup',
-      name: 'signip',
+      name: 'signup',
       component: ()=> import("@/views/SignUp.vue")
     },
     {
@@ -36,13 +53,14 @@ export default new Router({
       name: 'editor_edit',
       component: ()=> import("@/views/ArticleEdit.vue")
     },
-    // {
-    //   path: '/editor/:article',
-    //   name: 'editor_view',
-    //   component: ()=> import("@/views/Article.vue")
-    // },
     {
-      path: '/:usernmae',
+      name: "article",
+      path: "/articles/:slug",
+      component: () => import("@/views/Article"),
+      props: true
+    },
+    {
+      path: '/:username',
       name: 'profile',
       component: ()=> import("@/views/Profile.vue")
     },
