@@ -29,3 +29,26 @@
   </div>
 </div>
 </template>
+<script>
+import { GET_ARTICLE } from '../store/actionType';
+export default {
+    name:"ArticleCU",
+    created(){
+        if(this.$route.params.slug !==undefined){
+            this.$store.dispatch(GET_ARTICLE,this.$route.params)
+        }
+    },
+    data(){
+        return {
+
+        }
+    },
+    computed:{
+        article: this.$store.getters.article
+    },
+    methods:{
+
+    }
+}
+</script>
+

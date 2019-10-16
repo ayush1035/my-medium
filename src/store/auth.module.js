@@ -51,7 +51,6 @@ const actions = {
                 .then(({
                     data
                 }) => {
-                    debugger;
                     context.commit(SET_USER, data.user);
                     res(data);
                 });

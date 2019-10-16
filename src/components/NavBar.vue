@@ -8,10 +8,13 @@
             <router-link  class="nav-link active" to="/">Home</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
-              <i class="ion-compose"></i>&nbsp;New Post
-            </a>
-          </li>
+            <router-link
+                class="nav-link"
+                :to="{ name: 'article-edit' }"
+            >
+                New Article
+            </router-link>
+        </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/settings">
               <i class="ion-gear-a"></i>&nbsp;Settings
@@ -32,16 +35,18 @@
 import { LOGOUT } from "@/store/actionType";
 
 export default {
-    computed:{
-        isLoggedIn: function(){return this.$store.getters.isLoggedIn}
-    },
-    methods:{
-        logout: function(){
-            this.$store.dispatch(LOGOUT).then(()=>{
-                this.$router.push('/login');
-            });
-        }
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
     }
-}
+  },
+  methods: {
+    logout: function() {
+      this.$store.dispatch(LOGOUT).then(() => {
+        this.$router.push("/login");
+      });
+    }
+  }
+};
 </script>
 
