@@ -22,6 +22,9 @@ const state = {
 };
 
 const getters = {
+    currentUser(state) {
+        return state.user;
+    },
     isLoggedIn(state) {
         return state.isLoggedIn;
     }

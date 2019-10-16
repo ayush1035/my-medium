@@ -7,18 +7,27 @@
         <form>
           <fieldset>
             <fieldset class="form-group">
-                <input type="text" class="form-control form-control-lg" placeholder="Article Title">
+                <input type="text" class="form-control form-control-lg" placeholder="Article Title"  v-model="article.title">
             </fieldset>
             <fieldset class="form-group">
-                <input type="text" class="form-control" placeholder="What's this article about?">
+                <input type="text" class="form-control" placeholder="What's this article about?"  v-model="article.description">
             </fieldset>
             <fieldset class="form-group">
-                <textarea class="form-control" rows="8" placeholder="Write your article (in markdown)"></textarea>
+                <textarea class="form-control" rows="8" placeholder="Write your article (in markdown)"  v-model="article.body"></textarea>
             </fieldset>
             <fieldset class="form-group">
-                <input type="text" class="form-control" placeholder="Enter tags"><div class="tag-list"></div>
+                <input type="text" class="form-control" placeholder="Enter tags" v-model="tags" @keypress.enter.prevent="addTag(tags)">
+                    <div class="tag-list">
+                        <span class="tag-default tag-pill"
+                            v-for="(tag, index) of article.tagList"
+                            :key="tag + index"
+                        >
+                    <i class="ion-close-round" @click="deleteTag(tag)"> </i>
+                    {{ tag }}
+                  </span>
+                    </div>
             </fieldset>
-            <button class="btn btn-lg pull-xs-right btn-primary" type="button">
+            <button @click="publishArticle(article.slug)" class="btn btn-lg pull-xs-right btn-primary" type="button">
                 Publish Article
             </button>
           </fieldset>
@@ -30,25 +39,51 @@
 </div>
 </template>
 <script>
-import { GET_ARTICLE } from '../store/actionType';
+import {
+  GET_ARTICLE,
+  UPDATE_ARTICLE,
+  CREATE_ARTICLE,
+  REMOVE_TAG,
+  ADD_TAG
+} from "../store/actionType";
 export default {
-    name:"ArticleCU",
-    created(){
-        if(this.$route.params.slug !==undefined){
-            this.$store.dispatch(GET_ARTICLE,this.$route.params)
-        }
-    },
-    data(){
-        return {
-
-        }
-    },
-    computed:{
-        article: this.$store.getters.article
-    },
-    methods:{
-
+  name: "ArticleCU",
+  created() {
+    if (this.$route.params.slug !== undefined) {
+      this.$store.dispatch(GET_ARTICLE, this.$route.params);
     }
-}
+  },
+  data() {
+    return {
+      tags: null
+    };
+  },
+  computed: {
+    article: function(){return this.$store.getters.article}
+  },
+  methods: {
+    publishArticle(slug) {
+      let actionType = slug ? UPDATE_ARTICLE : CREATE_ARTICLE;
+      this.$store
+        .dispatch(actionType, this.article)
+        .then(({ data }) => {
+            debugger;
+          this.$router.push({
+            name: "article",
+            params: { slug: data.article.slug }
+          });
+        })
+        .catch(({ response }) => {
+          console.log(response.data.errors);
+        });
+    },
+    addTag(tag) {
+        this.$store.dispatch(REMOVE_TAG,tag)
+    },
+    deleteTag(tag) {
+        this.$store.dispatch(ADD_TAG,tag)
+    }
+  }
+};
 </script>
 

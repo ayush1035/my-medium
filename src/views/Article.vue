@@ -14,9 +14,19 @@
             </router-link>
               <span class="date">{{formatDate(article.createdAt) }}</span>
             </div>
-            <button class="btn btn-outline-primary btn-sm pull-xs-right">
-              <i class="ion-heart"></i> {{ article.favoritesCount }}
-            </button>
+           <span v-if="isCurrentUser()">
+                <router-link class="btn btn-sm btn-outline-secondary" :to="{ name: 'article-edit', params: { slug: article.slug } }">
+                <i class="ion-edit"></i> <span>&nbsp;Edit Article</span>
+                </router-link>
+                <span>&nbsp;&nbsp;</span>
+                <button class="btn btn-outline-danger btn-sm" @click="deleteArticle">
+                <i class="ion-trash-a"></i> <span>&nbsp;Delete Article</span>
+                </button>
+            </span>
+            <!-- Used in ArticleView when not author -->
+            <span v-else>
+               abc
+            </span>
            </div>
       </div>
     </div>
@@ -80,7 +90,7 @@
   </div>
 </template>
 <script>
-import {GET_ARTICLE,GET_COMMENTS} from '@/store/actionType';
+import {GET_ARTICLE,GET_COMMENTS,DELETE_ARTICLE} from '@/store/actionType';
 import Comment from "@/components/Comment";
 import CommentEditor from "@/components/CommentEditor"
 import moment from "moment";
@@ -98,11 +108,30 @@ export default {
     computed:{
         article:function(){return this.$store.getters.article},
         comments:function(){return this.$store.getters.comments},
-        isLoggedIn: function(){return this.$store.getters.isLoggedIn}
+        isLoggedIn: function(){return this.$store.getters.isLoggedIn},
+        currentUser: function(){return this.$store.getters.currentUser}
     },
     methods: {
     formatDate(dateString) {
       return moment(dateString).format("MMMM Do, YYYY");
+    },
+    isCurrentUser() {
+      if (this.currentUser.username && this.article.author.username) {
+        return this.currentUser.username === this.article.author.username;
+      }
+      return false;
+    },
+    deleteArticle(){
+        this.$store
+        .dispatch(DELETE_ARTICLE, this.article)
+        .then(({ data }) => {
+          this.$router.push({
+            name: "homeGlobal"
+          });
+        })
+        .catch(({ response }) => {
+          console.log(response.data.errors);
+        });
     }
   }
 }

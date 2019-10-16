@@ -5,7 +5,10 @@ import {
     GET_ARTICLE,
     GET_COMMENTS,
     COMMENT_CREATE,
-    COMMENT_DELETE
+    COMMENT_DELETE,
+    CREATE_ARTICLE,
+    UPDATE_ARTICLE,
+    DELETE_ARTICLE
 } from "./actionType";
 import {
     GET_START,
@@ -15,14 +18,31 @@ import {
 
 
 const state = {
-    article: {},
+    article: {
+        author: {},
+        title: "",
+        description: "",
+        body: "",
+        tagList: []
+      },
     comments: [],
-    isLoading: true
+    isLoading: false
 };
 
 const getters = {
     article(state) {
+        if(state.article!=undefined)
         return state.article;
+        else{
+            let article =  {
+                author: {},
+                title: "",
+                description: "",
+                body: "",
+                tagList: []
+              };
+            return article;
+        }
     },
     comments(state) {
         return state.comments;
@@ -67,13 +87,23 @@ const actions = {
     [COMMENT_DELETE](context,payload){
         context.commit(GET_START);
         //checking the version of the feed
-        debugger
         return HttpService.delete(`articles/${payload.slug}/comments/${payload.commentId}`).then((
         ) => {
             context.dispatch(GET_COMMENTS, payload);
         }).catch(error => {
             console.log(error);
         })
+    },
+    [CREATE_ARTICLE](context,payload){
+        context.commit(GET_START);
+        return HttpService.post("articles",{article:payload});
+    },
+    [UPDATE_ARTICLE](context,payload){
+        context.commit(GET_START);
+        return HttpService.put("articles/"+payload.slug,{article:payload});
+    },
+    [DELETE_ARTICLE](context,payload){
+        return HttpService.delete("articles/"+payload.slug);
     }
 };
 

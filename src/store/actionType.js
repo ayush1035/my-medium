@@ -15,5 +15,8 @@ export const GET_GLOBAL_ARTICLES = "getGlobalArticles";
 export const CREATE_ARTICLE = "createArticle";
 export const UPDATE_ARTICLE = "updateArticle";
 export const DELETE_ARTICLE = "deleteArticle"
+//tag
+export const ADD_TAG = "addTag";
+export const REMOVE_TAG = "removeTag";
 
 
