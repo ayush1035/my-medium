@@ -27,6 +27,9 @@ const getters = {
     },
     tags(state){
         return state.tags;
+    },
+    isLoading(state){
+        return state.isLoading
     }
 };
 
@@ -79,7 +82,6 @@ const mutations = {
         state.totalArticles = articlesCount;
     },
     [UPDATE_ARTICLE_IN_LIST](state, data) {
-        debugger;
         state.articles = state.articles.map(article => {
           if (article.slug !== data.slug) {
             return article;

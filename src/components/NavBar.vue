@@ -7,7 +7,7 @@
             <!-- Add "active" class when you're on that page" -->
             <router-link  class="nav-link active" to="/">Home</router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="isLoggedIn">
             <router-link
                 class="nav-link"
                 :to="{ name: 'article-edit' }"

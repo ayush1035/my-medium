@@ -70,7 +70,7 @@ export default {
     publishArticle(slug) {
       let actionType = slug ? UPDATE_ARTICLE : CREATE_ARTICLE;
       //adding tags
-      let arr = this.tags.split(' ');
+      let arr = this.tags == null ? [] : this.tags.split(" ");
       this.article.tagList = this.article.tagList.concat(arr);
       this.$store
         .dispatch(actionType, this.article)
@@ -81,9 +81,12 @@ export default {
           });
         })
         .catch(({ response }) => {
-          console.log(response.data.errors);
+          let err = response.data.errors;
+          for (var eobj in err) {
+            this.$toasted.show(eobj + " " + err[eobj]);
+          }
         });
-    },
+    }
   }
 };
 </script>

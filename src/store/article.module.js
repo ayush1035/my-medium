@@ -115,7 +115,6 @@ const actions = {
         context.commit(RESET_ARTICLE)
     },
     [FAVORITE_ADD](context,payload){
-        context.commit(GET_START);
         return HttpService.post(`articles/${payload.slug}/favorite`).then(({data}
         ) => {
             context.commit(UPDATE_ARTICLE_IN_LIST, data.article, { root: true });
@@ -125,7 +124,6 @@ const actions = {
         })
     },
     [FAVORITE_REMOVE](context,payload){
-        context.commit(GET_START);
         return HttpService.delete(`articles/${payload.slug}/favorite`).then(({data}
         ) => {
             context.commit(UPDATE_ARTICLE_IN_LIST, data.article, { root: true });

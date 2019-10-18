@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-block">
-      <p class="card-text">{{ comment.body }}</p>
+      <p class="card-text" contenteditable="true">{{ comment.body }}</p>
     </div>
     <div class="card-footer">
       <a href="" class="comment-author">
@@ -42,7 +42,6 @@ export default {
       return moment(dateString).format("MMMM Do, YYYY");
     },
      isCurrentUser() {
-       debugger;
       if (this.currentUser.username && this.comment.author.username) {
         return this.currentUser.username === this.comment.author.username;
       }

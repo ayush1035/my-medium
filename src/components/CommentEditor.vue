@@ -35,7 +35,11 @@ export default {
   },
   methods: {
     onSubmit(slug, comment) {
-      this.$store
+      if(this.comment == '' ||this.comment == null){
+         this.$toasted.show('Comment cannot be empty');
+      }
+      else{
+        this.$store
         .dispatch(COMMENT_CREATE, { slug, comment })
         .then(() => {
           this.comment = null;
@@ -43,6 +47,8 @@ export default {
         .catch(({ response }) => {
          console.log(response.data.errors)
         });
+      }
+      
     }
   }
 };
