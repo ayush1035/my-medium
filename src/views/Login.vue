@@ -9,17 +9,17 @@
           <router-link to="/signup">Need an account?</router-link>
         </p>
 
-        <form >
+        <div >
           <fieldset class="form-group">
             <input class="form-control form-control-lg" v-model="email" type="email" placeholder="Email">
           </fieldset>
           <fieldset class="form-group">
             <input class="form-control form-control-lg" v-model="password" type="password" placeholder="Password">
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" @click="login(email,password)">
+          <button class="btn btn-lg btn-primary pull-xs-right" @click="login(email,password)" type="button">
             Sign in
           </button >
-        </form>
+        </div>
       </div>
 
     </div>
