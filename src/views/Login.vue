@@ -6,12 +6,8 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign in</h1>
         <p class="text-xs-center">
-          <a href="">Need an account?</a>
+          <router-link to="/signup">Need an account?</router-link>
         </p>
-
-        <ul class="error-messages">
-          <li>That email is already taken</li>
-        </ul>
 
         <form >
           <fieldset class="form-group">

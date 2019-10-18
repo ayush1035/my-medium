@@ -8,11 +8,6 @@
         <p class="text-xs-center">
           <a href="">Have an account?</a>
         </p>
-
-        <ul class="error-messages">
-          <li>That email is already taken</li>
-        </ul>
-
         <form>
           <fieldset class="form-group">
             <input class="form-control form-control-lg" type="text" v-model="name" placeholder="Your Name">

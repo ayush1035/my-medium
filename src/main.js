@@ -10,6 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { loadProgressBar } from 'axios-progress-bar'
+import Toasted from 'vue-toasted';
+ 
+Vue.use(Toasted,{duration:3000, theme:"bubble"})
  
 loadProgressBar();
 Vue.config.productionTip = false

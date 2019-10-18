@@ -16,13 +16,12 @@
                 <textarea class="form-control" rows="8" placeholder="Write your article (in markdown)"  v-model="article.body"></textarea>
             </fieldset>
             <fieldset class="form-group">
-                <input type="text" class="form-control" placeholder="Enter tags" v-model="tags" @keypress.enter.prevent="addTag(tags)">
+                <input type="text" class="form-control" placeholder="Enter tags" v-model="tags">
                     <div class="tag-list">
                         <span class="tag-default tag-pill"
                             v-for="(tag, index) of article.tagList"
                             :key="tag + index"
                         >
-                    <i class="ion-close-round" @click="deleteTag(tag)"> </i>
                     {{ tag }}
                   </span>
                     </div>
@@ -70,6 +69,9 @@ export default {
   methods: {
     publishArticle(slug) {
       let actionType = slug ? UPDATE_ARTICLE : CREATE_ARTICLE;
+      //adding tags
+      let arr = this.tags.split(' ');
+      this.article.tagList = this.article.tagList.concat(arr);
       this.$store
         .dispatch(actionType, this.article)
         .then(({ data }) => {
@@ -82,12 +84,6 @@ export default {
           console.log(response.data.errors);
         });
     },
-    addTag(tag) {
-      this.$store.dispatch(REMOVE_TAG, tag);
-    },
-    deleteTag(tag) {
-      this.$store.dispatch(ADD_TAG, tag);
-    }
   }
 };
 </script>

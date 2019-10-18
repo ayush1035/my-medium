@@ -15,16 +15,11 @@
                 New Article
             </router-link>
         </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/settings">
-              <i class="ion-gear-a"></i>&nbsp;Settings
-            </router-link>
-          </li>
            <li class="nav-item" v-if="!isLoggedIn">
-            <router-link class="nav-link" to="login">Sign in</router-link>
+            <router-link class="nav-link" to="/login">Sign in</router-link>
           </li>
           <li class="nav-item" v-if="!isLoggedIn">
-            <router-link class="nav-link" to="signup">Sign up</router-link>
+            <router-link class="nav-link" to="/signup">Sign up</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn">
             <a class="nav-link" @click="logout" >Logout</a>

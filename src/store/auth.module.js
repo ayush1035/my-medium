@@ -13,6 +13,8 @@ import {
     SET_USER,
     UNSET_USER
 } from "./mutationType";
+import Vue from 'vue'
+
 
 const state = {
     status: '',
@@ -40,6 +42,8 @@ const actions = {
             }) => {
                 context.commit(SET_USER, data.user);
                 res(data);
+            }).catch((error)=>{
+                Vue.toasted.show("Email or password "+error.response.data.errors["email or password"]);
             })
         })
     },
@@ -56,6 +60,13 @@ const actions = {
                 }) => {
                     context.commit(SET_USER, data.user);
                     res(data);
+                }).catch((error)=>{
+                    let err = error.response.data.errors;
+                    for(var eobj in err)
+                    {
+                        Vue.toasted.show(eobj +" "+  err[eobj]);   
+                    }
+
                 });
         });
     },

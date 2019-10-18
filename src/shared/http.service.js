@@ -28,7 +28,6 @@ const HttpService = {
     },
 
     post(url, params) {
-        debugger;
         return Vue.axios.post(`${url}`, params);
     },
 
