@@ -102,6 +102,7 @@ export default {
         CommentEditor
     },
     mounted(){
+      debugger;
         this.$store.dispatch(GET_ARTICLE,this.$route.params);
         this.$store.dispatch(GET_COMMENTS,this.$route.params);
     },

@@ -16,7 +16,6 @@ import {
 } from "./actionType";
 import {
     GET_START,
-    GET_END,
     SET_COMMENTS,
     UNSET_ARTICLE,
     GET_END_ARTICLE
@@ -62,7 +61,8 @@ const actions = {
         return HttpService.get("articles", payload.slug).then(({
             data
         }) => {
-            context.commit(GET_END, data);
+
+            context.commit(GET_END_ARTICLE, data);
         }).catch(error => {
             console.log(error);
         })

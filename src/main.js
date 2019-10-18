@@ -6,8 +6,11 @@ import {CHECK_USER} from './store/actionType.js'
 import './assets/main.css'
 import HttpService from './shared/http.service';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+var Paginate = require('vuejs-paginate');
+Vue.component('paginate', Paginate);
 Vue.config.productionTip = false
 
 library.add(faHeart)

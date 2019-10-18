@@ -26,6 +26,15 @@
                  :to="{ name: 'homeGlobal' }"
                   exact>Global Feed</router-link>
             </li>
+            <li class="nav-item" v-if="tag">
+                <router-link
+                  :to="{ name: 'homeTag', params: { tag } }"
+                  class="nav-link"
+                  active-class="active"
+                >
+                  <i class="ion-pound"></i> {{ tag }}
+                </router-link>
+              </li>
           </ul>
         </div>
         <router-view></router-view>
@@ -36,14 +45,7 @@
           <p>Popular Tags</p>
 
           <div class="tag-list">
-            <a href="" class="tag-pill tag-default">programming</a>
-            <a href="" class="tag-pill tag-default">javascript</a>
-            <a href="" class="tag-pill tag-default">emberjs</a>
-            <a href="" class="tag-pill tag-default">angularjs</a>
-            <a href="" class="tag-pill tag-default">react</a>
-            <a href="" class="tag-pill tag-default">mean</a>
-            <a href="" class="tag-pill tag-default">node</a>
-            <a href="" class="tag-pill tag-default">rails</a>
+            <Tag v-for="(tag, index) in tags" :name="tag" :key="index" ></Tag>
           </div>
         </div>
       </div>
@@ -55,11 +57,25 @@
 </template>
 
 <script>
+import Tag from "@/components/Tag";
+import {GET_TAGS} from "@/store/actionType"
 export default {
   name: "home",
+  components:{
+    Tag
+  },
+  mounted(){
+    this.$store.dispatch(GET_TAGS)
+  },
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
+    },
+    tags: function(){
+      return this.$store.getters.tags;
+    },
+    tag:function(){
+      return this.$route.params.tag;
     }
   }
 };

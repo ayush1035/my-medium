@@ -5,5 +5,5 @@ export const GET_END = 'getEnd';
 export const SET_COMMENTS = "setComments";
 export const UNSET_ARTICLE = "resetArticle";
 export const GET_END_ARTICLE = "getEndArticle";
-
+export const SET_TAGS = "setTags";
 

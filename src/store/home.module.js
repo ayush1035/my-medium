@@ -4,21 +4,30 @@ from "@/shared/http.service";
 import {
     GET_GLOBAL_ARTICLES,
     GET_PROFILE_ARTICLES,
-    UPDATE_ARTICLE_IN_LIST
+    GET_TAG_ARTICLES,
+    UPDATE_ARTICLE_IN_LIST,
+    GET_TAGS
 } from "./actionType";
-import { GET_START, GET_END } from "./mutationType";
+import { GET_START, GET_END,SET_TAGS } from "./mutationType";
 
 
 const state = {
     articles: [],
     isLoading: true,
-    totalArticles:0
+    totalArticles:0,
+    tags:[]
 };
 
 const getters = {
     articles(state) {
         return state.articles;
     },
+    totalArticles(state){
+        return state.totalArticles
+    },
+    tags(state){
+        return state.tags;
+    }
 };
 
 const actions = {
@@ -40,6 +49,23 @@ const actions = {
         }).catch(error=>{
             console.log(error);
         })
+    },
+    [GET_TAG_ARTICLES](context,payload){
+        context.commit(GET_START);  
+        return HttpService.getWithParams("articles",payload).then(({data})=>{
+            context.commit(GET_END,data);
+        }).catch(error=>{
+            console.log(error);
+        })
+    },
+    [GET_TAGS](context){
+        return HttpService.get("tags")
+      .then(({ data }) => {
+        context.commit(SET_TAGS, data.tags);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
     }
 };
 
@@ -65,8 +91,11 @@ const mutations = {
           article.favoritesCount = data.favoritesCount;
           return article;
         });
-        
-    }
+
+    },
+    [SET_TAGS](state, tags) {
+        state.tags = tags;
+      },
 };
 
 export default {

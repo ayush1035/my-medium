@@ -13,6 +13,7 @@ export const GET_COMMENTS = "getComments";
 export const GET_ARTICLE = "getArticle";
 export const GET_GLOBAL_ARTICLES = "getGlobalArticles";
 export const GET_PROFILE_ARTICLES = "getProfileArtciles";
+export const GET_TAG_ARTICLES = "getTagArticles";
 export const CREATE_ARTICLE = "createArticle";
 export const UPDATE_ARTICLE = "updateArticle";
 export const DELETE_ARTICLE = "deleteArticle"
@@ -23,5 +24,6 @@ export const UPDATE_ARTICLE_IN_LIST = "updateArticleInList";
 //tag
 export const ADD_TAG = "addTag";
 export const REMOVE_TAG = "removeTag";
+export const GET_TAGS = "getTags";
 
 
