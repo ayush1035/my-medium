@@ -143,7 +143,6 @@ const mutations = {
     [GET_END_ARTICLE](state, {
         article
     }) {
-        debugger;
         state.isLoading = false;
         state.article = article;
     },

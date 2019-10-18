@@ -25,7 +25,7 @@
             </span>
             <!-- Used in ArticleView when not author -->
             <span v-else>
-               abc
+               
             </span>
            </div>
       </div>
@@ -102,7 +102,6 @@ export default {
         CommentEditor
     },
     mounted(){
-      debugger;
         this.$store.dispatch(GET_ARTICLE,this.$route.params);
         this.$store.dispatch(GET_COMMENTS,this.$route.params);
     },

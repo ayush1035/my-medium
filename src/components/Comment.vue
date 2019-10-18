@@ -14,7 +14,7 @@
         &nbsp;{{ comment.author.username }}
       </router-link>
       <span class="date-posted">{{formatDate(comment.createdAt) }}</span>
-      <span class="mod-options">
+      <span v-if="isCurrentUser()" class="mod-options">
         <i class="ion-trash-a" v-on:click="deleteComment(slug, comment.id)">Remove</i>
       </span>
     </div>
@@ -32,7 +32,7 @@ export default {
     comment: { type: Object, required: true }
   },
   computed: {
-    
+    currentUser: function(){return this.$store.getters.currentUser}
   },
   methods: {
     deleteComment(slug, commentId) {
@@ -40,7 +40,14 @@ export default {
     },
     formatDate(dateString) {
       return moment(dateString).format("MMMM Do, YYYY");
-    }
+    },
+     isCurrentUser() {
+       debugger;
+      if (this.currentUser.username && this.comment.author.username) {
+        return this.currentUser.username === this.comment.author.username;
+      }
+      return false;
+    },
   }
 };
 </script>
