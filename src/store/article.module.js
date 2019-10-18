@@ -8,12 +8,14 @@ import {
     COMMENT_DELETE,
     CREATE_ARTICLE,
     UPDATE_ARTICLE,
-    DELETE_ARTICLE
+    DELETE_ARTICLE,
+    RESET_ARTICLE
 } from "./actionType";
 import {
     GET_START,
     GET_END,
-    SET_COMMENTS
+    SET_COMMENTS,
+    UNSET_ARTICLE
 } from "./mutationType";
 
 
@@ -104,6 +106,9 @@ const actions = {
     },
     [DELETE_ARTICLE](context,payload){
         return HttpService.delete("articles/"+payload.slug);
+    },
+    [RESET_ARTICLE](context){
+        context.commit(RESET_ARTICLE)
     }
 };
 
@@ -122,6 +127,16 @@ const mutations = {
     }) {
         state.isLoading = false;
         state.comments = comments;
+    },
+    [UNSET_ARTICLE](state){
+        state.article = {
+            author: {},
+            title: "",
+            description: "",
+            body: "",
+            tagList: []
+          };
+        state.comments = [];
     }
 };
 

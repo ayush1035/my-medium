@@ -22,7 +22,7 @@
                   class="nav-link"
                   active-class="active"
                   exact
-                  :to="{ name: 'profile' }"
+                  :to="{ name: 'profile-articles'}"
                 >
                   My Articles
                 </router-link>
@@ -31,7 +31,6 @@
                 <router-link
                   class="nav-link"
                   active-class="active"
-                  exact
                   :to="{ name: 'profile-favorites' }"
                 >
                   Favorited Articles

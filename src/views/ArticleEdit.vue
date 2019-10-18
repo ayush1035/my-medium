@@ -43,12 +43,16 @@ import {
   GET_ARTICLE,
   UPDATE_ARTICLE,
   CREATE_ARTICLE,
+  RESET_ARTICLE,
   REMOVE_TAG,
   ADD_TAG
 } from "../store/actionType";
 export default {
   name: "ArticleCU",
   created() {
+    if (this.article.slug) {
+      this.$store.dispatch(RESET_ARTICLE);
+    }
     if (this.$route.params.slug !== undefined) {
       this.$store.dispatch(GET_ARTICLE, this.$route.params);
     }
@@ -59,7 +63,9 @@ export default {
     };
   },
   computed: {
-    article: function(){return this.$store.getters.article}
+    article: function() {
+      return this.$store.getters.article;
+    }
   },
   methods: {
     publishArticle(slug) {
@@ -67,7 +73,6 @@ export default {
       this.$store
         .dispatch(actionType, this.article)
         .then(({ data }) => {
-            debugger;
           this.$router.push({
             name: "article",
             params: { slug: data.article.slug }
@@ -78,10 +83,10 @@ export default {
         });
     },
     addTag(tag) {
-        this.$store.dispatch(REMOVE_TAG,tag)
+      this.$store.dispatch(REMOVE_TAG, tag);
     },
     deleteTag(tag) {
-        this.$store.dispatch(ADD_TAG,tag)
+      this.$store.dispatch(ADD_TAG, tag);
     }
   }
 };

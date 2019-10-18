@@ -4,15 +4,15 @@
             <a href="profile.html"><img :src="article.author.image" /></a>
             <div class="info">
                <router-link
-                    :to="{ name: 'profile', params: { username: article.author.username } }"
+                    :to="{ name: 'profile-articles', params: { username: article.author.username } }"
                     class="author"
                 >
                 {{ article.author.username }}
             </router-link>
               <span class="date">{{formatDate(article.createdAt) }}</span>
             </div>
-            <button class="btn btn-outline-primary btn-sm pull-xs-right">
-              <i class="ion-heart"></i> {{ article.favoritesCount }}
+            <button class="btn btn-outline-primary btn-sm pull-xs-right" >
+              <font-awesome-icon icon="user-secret" /> {{ article.favoritesCount }}
             </button>
           </div>
              <router-link :to="{ name: 'article', params: { slug: article.slug } }" class="preview-link">

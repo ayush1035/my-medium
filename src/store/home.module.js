@@ -3,6 +3,7 @@ HttpService
 from "@/shared/http.service";
 import {
     GET_GLOBAL_ARTICLES,
+    GET_PROFILE_ARTICLES
 } from "./actionType";
 import { GET_START, GET_END } from "./mutationType";
 
@@ -30,6 +31,14 @@ const actions = {
             console.log(error);
         })
 
+    },
+    [GET_PROFILE_ARTICLES](context,payload){
+        context.commit(GET_START);  
+        return HttpService.getWithParams("articles",payload).then(({data})=>{
+            context.commit(GET_END,data);
+        }).catch(error=>{
+            console.log(error);
+        })
     }
 };
 

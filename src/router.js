@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Profile from './views/Profile.vue'
+
 
 Vue.use(Router)
 
@@ -58,7 +60,19 @@ export default new Router({
     {
       path: '/:username',
       name: 'profile',
-      component: ()=> import("@/views/Profile.vue")
+      component: Profile,
+      children: [
+        {
+          path: "myArticles",
+          name: "profile-articles",
+          component: () => import("@/views/ProfileMyArticles")
+        },
+        {
+          path: "favorites",
+          name: "profile-favorites",
+          component: () => import("@/views/ProfileFavArticles")
+        }
+      ]
     },
     
   ]

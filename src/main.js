@@ -5,9 +5,12 @@ import store from './store/index.js'
 import {CHECK_USER} from './store/actionType.js'
 import './assets/main.css'
 import HttpService from './shared/http.service';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 Vue.config.productionTip = false
 
 HttpService.setup();
+// fa-icons
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 router.beforeEach((to, from, next) =>
   Promise.all([store.dispatch(CHECK_USER)]).then(next)

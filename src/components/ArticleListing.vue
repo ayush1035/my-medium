@@ -15,8 +15,9 @@
 </template>
 
 <script>
-import { GET_GLOBAL_ARTICLES } from "@/store/actionType";
+import { GET_GLOBAL_ARTICLES, GET_PROFILE_ARTICLES } from "@/store/actionType";
 import ArticleListItem from "./ArticleListItem";
+import store from "@/store/index.js";
 
 export default {
   name: "ArticleListing",
@@ -28,7 +29,35 @@ export default {
       type: String,
       required: false,
       default: "global"
+    },
+    username: {
+      type: String,
+      required: false
+    },
+    tag: {
+      type: String,
+      required: false
+    },
+    favourite: {
+      type: String,
+      required: false
     }
+  },
+  watch: {
+    '$route.params': {
+        handler(newValue) {
+            if(this.$route.path.includes('myArticles')){
+                debugger;
+                this.getMyArticles();
+            }
+            if(this.$route.path.includes('favorites')){
+                debugger;
+                this.getFavArticles();
+            }
+        },
+        immediate: true,
+    },
+    
   },
   computed: {
     articles: function() {
@@ -39,11 +68,22 @@ export default {
     }
   },
   created() {
-    this.getGlobalArticles();
+    if (this.version != undefined) {
+      if (this.$route.params.username == undefined) {
+        this.getGlobalArticles();
+      }
+    }
   },
   methods: {
     getGlobalArticles() {
-      this.$store.dispatch(GET_GLOBAL_ARTICLES, {version:this.version});
+      this.$store.dispatch(GET_GLOBAL_ARTICLES, { version: this.version });
+    },
+    getMyArticles() {
+      this.$store.dispatch(GET_PROFILE_ARTICLES, { author: this.username || this.favourite });
+    },
+    getFavArticles() {
+        debugger;
+      this.$store.dispatch(GET_PROFILE_ARTICLES, { favorited: this.username || this.favourite });
     }
   }
 };

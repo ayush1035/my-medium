@@ -22,7 +22,8 @@ const HttpService = {
     },
 
     getWithParams(url,params){
-        return Vue.axios.get(url,params).catch(error => {
+        debugger
+        return Vue.axios.get(url,{params}).catch(error => {
             console.log(error)
         });
     },
