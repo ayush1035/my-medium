@@ -3,7 +3,8 @@ HttpService
 from "@/shared/http.service";
 import {
     GET_GLOBAL_ARTICLES,
-    GET_PROFILE_ARTICLES
+    GET_PROFILE_ARTICLES,
+    UPDATE_ARTICLE_IN_LIST
 } from "./actionType";
 import { GET_START, GET_END } from "./mutationType";
 
@@ -50,6 +51,21 @@ const mutations = {
         state.isLoading = false;
         state.articles = articles;
         state.totalArticles = articlesCount;
+    },
+    [UPDATE_ARTICLE_IN_LIST](state, data) {
+        debugger;
+        state.articles = state.articles.map(article => {
+          if (article.slug !== data.slug) {
+            return article;
+          }
+          // We could just return data, but it seems dangerous to
+          // mix the results of different api calls, so we
+          // protect ourselves by copying the information.
+          article.favorited = data.favorited;
+          article.favoritesCount = data.favoritesCount;
+          return article;
+        });
+        
     }
 };
 

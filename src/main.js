@@ -6,8 +6,11 @@ import {CHECK_USER} from './store/actionType.js'
 import './assets/main.css'
 import HttpService from './shared/http.service';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 Vue.config.productionTip = false
 
+library.add(faHeart)
 HttpService.setup();
 // fa-icons
 Vue.component('font-awesome-icon', FontAwesomeIcon);

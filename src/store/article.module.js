@@ -9,13 +9,17 @@ import {
     CREATE_ARTICLE,
     UPDATE_ARTICLE,
     DELETE_ARTICLE,
-    RESET_ARTICLE
+    RESET_ARTICLE,
+    FAVORITE_ADD,
+    FAVORITE_REMOVE,
+    UPDATE_ARTICLE_IN_LIST
 } from "./actionType";
 import {
     GET_START,
     GET_END,
     SET_COMMENTS,
-    UNSET_ARTICLE
+    UNSET_ARTICLE,
+    GET_END_ARTICLE
 } from "./mutationType";
 
 
@@ -109,6 +113,26 @@ const actions = {
     },
     [RESET_ARTICLE](context){
         context.commit(RESET_ARTICLE)
+    },
+    [FAVORITE_ADD](context,payload){
+        context.commit(GET_START);
+        return HttpService.post(`articles/${payload.slug}/favorite`).then(({data}
+        ) => {
+            context.commit(UPDATE_ARTICLE_IN_LIST, data.article, { root: true });
+            context.commit(GET_END_ARTICLE, data);
+        }).catch(error => {
+            console.log(error);
+        })
+    },
+    [FAVORITE_REMOVE](context,payload){
+        context.commit(GET_START);
+        return HttpService.delete(`articles/${payload.slug}/favorite`).then(({data}
+        ) => {
+            context.commit(UPDATE_ARTICLE_IN_LIST, data.article, { root: true });
+            context.commit(GET_END_ARTICLE, data);
+        }).catch(error => {
+            console.log(error);
+        })
     }
 };
 
@@ -116,9 +140,10 @@ const mutations = {
     [GET_START](state) {
         state.isLoading = true;
     },
-    [GET_END](state, {
+    [GET_END_ARTICLE](state, {
         article
     }) {
+        debugger;
         state.isLoading = false;
         state.article = article;
     },

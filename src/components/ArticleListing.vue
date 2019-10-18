@@ -47,11 +47,9 @@ export default {
     '$route.params': {
         handler(newValue) {
             if(this.$route.path.includes('myArticles')){
-                debugger;
                 this.getMyArticles();
             }
             if(this.$route.path.includes('favorites')){
-                debugger;
                 this.getFavArticles();
             }
         },
@@ -82,7 +80,6 @@ export default {
       this.$store.dispatch(GET_PROFILE_ARTICLES, { author: this.username || this.favourite });
     },
     getFavArticles() {
-        debugger;
       this.$store.dispatch(GET_PROFILE_ARTICLES, { favorited: this.username || this.favourite });
     }
   }
