@@ -1,8 +1,16 @@
 // https://docs.cypress.io/api/introduction/api.html
-
-describe('My First Test', () => {
-  it('Visits the app root url', () => {
-    cy.visit('/')
-    cy.contains('h1', 'Welcome to Your Vue.js App')
-  })
-})
+describe("Test Header", () => {
+  it("Route change from home to sign in ", () => {
+    cy.visit("#/");
+    cy.get('.nav-link').contains('Sign in').click();
+    cy.contains("h1", "Sign in");
+  });
+});
+ 
+describe("Open Home  Article", () => {
+  it("Visits the Home url via login", () => {
+    cy.visit("#/login");
+    cy.get('.nav-link').contains('Home').click();
+    cy.contains("h1", "My Medium");
+  });
+});

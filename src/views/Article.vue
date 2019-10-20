@@ -4,7 +4,7 @@
       <div class="container">
         <h1>{{ article.title }}</h1>
            <div class="article-meta">
-                <a href="profile.html"><img :src="article.author.image" /></a>
+            <router-link :to="{ name: 'profile-articles', params: { username: article.author.username } }"><img :src="article.author.image" /></router-link>
             <div class="info">
                <router-link
                     :to="{ name: 'profile', params: { username: article.author.username } }"

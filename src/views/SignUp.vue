@@ -6,7 +6,7 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign up</h1>
         <p class="text-xs-center">
-          <a href="">Have an account?</a>
+          <a href="" class="abc">Have an account?</a>
         </p>
         <form>
           <fieldset class="form-group">
@@ -17,9 +17,6 @@
           </fieldset>
           <fieldset class="form-group">
             <input class="form-control form-control-lg" type="password" v-model="password" placeholder="Password">
-          </fieldset>
-          <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="password" v-model="password_confirmation" placeholder="Confirm Password">
           </fieldset>
           <button class="btn btn-lg btn-primary pull-xs-right" @click="register">
             Sign up

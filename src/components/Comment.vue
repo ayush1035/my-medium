@@ -4,9 +4,9 @@
       <p class="card-text" contenteditable="true">{{ comment.body }}</p>
     </div>
     <div class="card-footer">
-      <a href="" class="comment-author">
+      <router-link :to="{ name: 'profile-articles', params: { username: comment.author.username } }" class="comment-author">
         <img :src="comment.author.image" class="comment-author-img" />
-      </a>
+      </router-link>
       <router-link
         class="comment-author"
         :to="{ name: 'profile', params: { username: comment.author.username } }"
