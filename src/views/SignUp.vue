@@ -8,7 +8,6 @@
         <p class="text-xs-center">
           <a href="">Have an account?</a>
         </p>
-        <form>
           <fieldset class="form-group">
             <input class="form-control form-control-lg" type="text" v-model="name" placeholder="Your Name">
           </fieldset>
@@ -21,7 +20,7 @@
           <button class="btn btn-lg btn-primary pull-xs-right" @click="register">
             Sign up
           </button>
-        </form>
+
       </div>
 
     </div>
